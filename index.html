@@ -1,0 +1,102 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Vue</title>
+    <script src="https://unpkg.com/vue@3.0.2"></script>
+    <style>
+        .box {
+            padding: 100px 0;
+            width: 400px;
+            text-align: center;
+            background: #ddd;
+            margin: 20px;
+            display: inline-block;
+        }
+
+        body {
+            background: #eee;
+            max-width: 960px;
+            margin: 20px auto;
+        }
+
+        p,
+        h3,
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style-type: none;
+            background: #fff;
+            margin: 20px auto;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        li.fav {
+            background: #ff9ed2;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Hello Vue</h1>
+    <div id="app">
+        <p>{{ title }} - {{ author }} - {{ age }}</p>
+
+        <button v-on:click="age++">Increase age</button>
+        <button v-on:click="age--">Decrease age</button>
+        <div @click="changeTitle('Words of Radiance')">Change book title</div>
+
+        <br>
+
+        <div>
+            <div v-if="showBooks">
+                <p>{{ title }} - {{ author }} - {{ age }}</p>
+            </div>
+            <button @click="toggleShowBooks">
+                <span v-if="showBooks">Hide Books</span>
+                <span v-else>Show Books</span>
+            </button>
+            // the difference between v-show and v-if is that v-show applies a css display property while v-if removes the element from the DOM completely
+            <div v-show="showBooks">Currently showing books</div>
+        </div>
+
+        <br>
+
+        <div>
+            <div class="box" @mouseover="handleEvent($event, 5)">mouseover</div>
+            <div class="box" @mouseleave="handleEvent">mouseleave</div>
+            <div class="box" @dblclick="handleEvent">double click</div>
+            <div class="box" @mousemove="handleMousemove">position - {{ x }} {{ y }}</div>
+        </div>
+
+        <br>
+
+        <div>
+            <ul>
+                <!-- or v-for="book in filteredBooks" -->
+                <li v-for="book in books" v-bind:class="{ fav: book.isFav }" @click="toggleIsFav(book)">
+                    <h3>{{ book.title }}</h3>
+                    <p>{{ book.author }}</p>
+                </li>
+            </ul>
+        </div>
+
+        <br>
+
+        <a v-bind:href="url">Click!</a>
+        <br>
+        <a :href="url">Click!</a>
+
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
